@@ -99,7 +99,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
             
             </div>
-           <Image src={image.url} alt={`${image._id}`} className='w-full h-full object-contain ' width={image.width} height={image.height}/>
+           <Image src={image.url} alt={`${image._id}`} className='w-full h-full object-contain ' width={image.width} height={image.height} priority/>
            </div>
     )
   }
