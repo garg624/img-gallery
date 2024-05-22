@@ -1,6 +1,4 @@
-"usee client"
-export const loading = () => {
-  return (
-    <div>loading...</div>
-  )
-}
+export default function Loading() {
+    // Or a custom loading skeleton component
+    return <p>Loading...</p>
+  }

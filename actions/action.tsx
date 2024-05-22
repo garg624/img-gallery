@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 
 export async function getAllimages() {
      connect();
-    const images = await Image.find();
+    const images = await Image.find().sort({ createdAt: -1 });;
     // console.log("action",images)
     return images;
 }
@@ -22,10 +22,10 @@ export async function uploadUrl({url,width,height}:{url:string,width:number,heig
         width,
         height
     })
-    revalidatePath("/");
+    revalidatePath('/', 'layout')
     return res;
 }
-export async function getImageById(id:string) {
+export async function getImageById(id:any) {
     if(!id){
         return "no id";
     }    

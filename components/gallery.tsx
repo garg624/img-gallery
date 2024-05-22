@@ -3,21 +3,33 @@ import { getAllimages } from '@/actions/action'
 
 import ImageCard from './ImageCard';
 import { useEffect, useState } from 'react';
-import { unstable_noStore as noStore } from 'next/cache';
+import { unstable_noStore as noStore, revalidatePath } from 'next/cache';
+import { notFound } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 const Gallery =() => {
   const [images,setImages]=useState([]);
+  const router = useRouter();
+ 
+
+
+
   useEffect(()=>{
     async function fetchImg() {
-      noStore();
+      
       
       const imagesRes=await getAllimages();
       console.log(imagesRes)
       setImages(imagesRes as any)
       console.log(images)
+      router.refresh();
+    
     }
     fetchImg();
   },[])
+  // if(images.length==0){
+  //   notFound();
+  // }
 
   return (
     <div className='container min-h-full min-w-full'>
