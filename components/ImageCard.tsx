@@ -1,17 +1,34 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { CiCirclePlus } from "react-icons/ci";
+
 
 const ImageCard = ({ url, id, width, height }: any) => {
+  // const [isHovered, setIsHovered] = React.useState("hidden");
+
   return (
+
+
     <Link
-      className="group hover:shadow-lg ease-in-out inline-block cursor-pointer hover:scale-102 transition-all duration-100"
+      className="group relative  overflow-hidden hover:shadow-lg ease-in-out inline-block cursor-pointer hover:scale-102 transition-all duration-100"
       href={`/i/${id}`}
     >
-    <div className='absolute  hidden  group-hover:inline-block top-16 right-10'>hisuhfghfghfghfghfgfsgghs</div>
-      <Image src={url} alt={"title"} width={width} height={height} className='object-contain group-hover:brightness-50 rounded-lg' />
-      {/* <p className='hidden group-hover:inline-block'>hello</p> */}
+      <Image
+        src={url}
+        alt={"title"}
+        width={width}
+        height={height}
+        className='object-contain group-hover:brightness-50 rounded-lg'
+
+      />
+      <div
+        className="absolute inset-0 hidden justify-center items-center bg-gradient-to-t from-black/60 to-transparent group-hover:flex"
+      >
+        <CiCirclePlus className='text-9xl brightness-50' />
+      </div>
     </Link>
+
   )
 }
 
