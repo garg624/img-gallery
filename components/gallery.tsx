@@ -1,13 +1,15 @@
 "use client"
 import { getAllimages } from '@/actions/action'
-import CardWrapper from './CardWrapper'
+
 import ImageCard from './ImageCard';
 import { useEffect, useState } from 'react';
+import { unstable_noStore as noStore } from 'next/cache';
 
 const Gallery =() => {
   const [images,setImages]=useState([]);
   useEffect(()=>{
     async function fetchImg() {
+      noStore();
       
       const imagesRes=await getAllimages();
       console.log(imagesRes)
