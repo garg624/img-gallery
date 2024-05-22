@@ -42,7 +42,7 @@ export default function Page({ params }: { params: { id: string } }) {
         
         async function fetchdata() {
             setCurrenturl(window.location.href);
-            const imageRes=await getImageById(params.id);
+            const imageRes=await getImageById(params.id) || {};
             // console.log(imageRes)
             setImage(imageRes);
             }
@@ -92,7 +92,7 @@ export default function Page({ params }: { params: { id: string } }) {
             </Dialog>
             
     <Button className='rounded-full' asChild>
-        <Link href={image.url} >
+        <Link href={image.url || ""} >
         <CiSaveDown2 className='text-2xl' />
         </Link>
     </Button>
