@@ -73,4 +73,9 @@
     body {
       @apply bg-background text-foreground;
     }
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: auto;
+    }
   }

@@ -6,6 +6,15 @@ const imageSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    width:{
+        type: Number,
+        required: true
+    },
+    height:{
+        type: Number,
+        required: true
+        }
+
     
 }, { timestamps: true });
 

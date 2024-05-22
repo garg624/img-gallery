@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from './ui/button'
 import { ModeToggle } from './theme-toggle'
 import { CldUploadButton } from 'next-cloudinary'
@@ -10,10 +10,14 @@ interface uploadImg {
     event: "sucess";
     info: {
         url: string;
-        public_id: string
+        public_id: string;
+        width:number;
+        height:number;
+
     };
 }
 const Navbar = () => {
+    
     return (
         <>
             <div className='flex justify-between items-center container  m-2  '>
@@ -27,8 +31,9 @@ const Navbar = () => {
                         <CldUploadButton uploadPreset="xjeh0mjb" onUpload={(result) => {
 
                             const res = result as uploadImg;
+                            
                             async function uploadUrlOnDb(){
-                                const result=await uploadUrl(res.info.url);
+                                const result=await uploadUrl(res.info);
                                 console.log("client side res",result)
                             }
                             uploadUrlOnDb();

@@ -20,12 +20,11 @@ const Gallery =() => {
   },[])
 
   return (
-    <div className='flex flex-col container'>
-      <h1 className='text-4xl m-4 font-bold'>Gallery...</h1>
-      <div className="grid grid-cols-1 m-2 md:grid-cols-3 lg:grid-cols-4 grid-auto-rows-minmax(200px, auto) gap-4">
+    <div className='container min-h-full min-w-full'>
+      <div className="columns-1 md:columns-2 lg:columns-3  mx-auto ">
         {/* <CardWrapper /> */}
         {images.map((img:any) => (
-        <ImageCard url={img.url} id={img._id} key={img._id}/>
+        <ImageCard url={img.url} id={img._id} key={img._id} width={img.width} height={img.height}/>
       ))}
       </div>
     </div>

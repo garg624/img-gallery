@@ -2,15 +2,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-const ImageCard = ({url,id}:any) => {
+const ImageCard = ({ url, id, width, height }: any) => {
   return (
     <Link
-    className="bg-white shadow-md rounded-md overflow-hidden grid-cols-span col-span-1"
-    href={`/${id}`}
->
-    <Image src={url} alt={"title"} className="w-full h-48 object-contain" width={100} height={100} />
-    
-</Link>
+      className="group hover:shadow-lg ease-in-out inline-block cursor-pointer hover:scale-102 transition-all duration-100"
+      href={`/i/${id}`}
+    >
+    <div className='relative w-full h-full hidden brightness-75 group-hover:inline-block'>hisuhfghfghfghfghfgfsgghs</div>
+      <Image src={url} alt={"title"} width={width} height={height} className='object-contain group-hover:brightness-50 rounded-lg' />
+      {/* <p className='hidden group-hover:inline-block'>hello</p> */}
+    </Link>
   )
 }
 
