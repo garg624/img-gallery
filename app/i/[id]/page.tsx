@@ -25,6 +25,14 @@ import {
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { DialogTrigger } from '@radix-ui/react-dialog';
 import { Separator } from '@/components/ui/separator';
+import {
+    ContextMenu,
+    ContextMenuContent,
+    ContextMenuItem,
+    ContextMenuTrigger,
+  } from "@/components/ui/context-menu"
+import { cn } from '@/lib/utils';
+  
 
 
 interface ImageResponse {
@@ -36,7 +44,7 @@ interface ImageResponse {
 export default function Page({ params }: { params: { id: string } }) {
     const [image, setImage] = useState<ImageResponse>({} as ImageResponse);
     const [currentUrl,setCurrenturl]=useState("");
-   
+    
 
     useEffect(()=>{
         
@@ -50,18 +58,13 @@ export default function Page({ params }: { params: { id: string } }) {
             
         
     },[])
-    return (
-        <div className="flex flex-col items-center justify-center h-full w-full fixed">
-            <div className='absolute top-5 left-5'>
-                <Button variant={"outline"} asChild>
-                    <Link href={"/"}><IoMdClose className='text-2xl'/></Link>
-                </Button>
-            </div>
-            <div className='absolute top-5 right-5 flex items-center justify-center gap-2'>
-
-            <Dialog >
+    const classNameMenu=`w-${image.width} h-${image.height}`;
+    console.log("width",classNameMenu)
+    const ShareDialog=()=>{
+            return(
+                <Dialog >
                 <DialogTrigger>
-                    <Button className='rounded-full' variant={"outline"}>
+                    <Button className='rounded-full -z-1' variant={"outline"}>
                          <CiShare1 className='text-2xl' />
                     </Button>
                 </DialogTrigger>
@@ -84,47 +87,62 @@ export default function Page({ params }: { params: { id: string } }) {
                                 <EmailIcon className='rounded-full col-span-1' />
                             </EmailShareButton>
                             <TelegramShareButton url={currentUrl}>
-                                <TelegramIcon className='rounded-full col-span-1' />
-                            </TelegramShareButton>
-                    </div>
+                                    <TelegramIcon className='rounded-full col-span-1' />
+                                </TelegramShareButton>
+                        </div>
 
-                </DialogContent>
-            </Dialog>
-            
-    <Button className='rounded-full' asChild>
-        <Link href={image.url || ""} >
-        <CiSaveDown2 className='text-2xl' />
-        </Link>
-    </Button>
-
-            
+                    </DialogContent>
+                </Dialog>
+            )
+    }
+    return (
+        <div className=" z-10 flex flex-col items-center justify-center h-full w-full fixed">
+            <div className='absolute top-5 left-5'>
+                {/* left side close btn */}
+                <Button variant={"outline"} asChild className='z-50'>
+                    <Link href={"/"}><IoMdClose className='text-2xl'/></Link>
+                </Button>
             </div>
-           <Image src={image.url} alt={`${image._id}`} className='w-full h-full object-contain ' width={image.width} height={image.height} priority/>
+            <div className='absolute top-5 right-5 flex items-center justify-center gap-2'>
+            {/* right side share and download btn */}
+            
+                    <ShareDialog />
+                    <Button className='rounded-full -z-1' asChild>
+                        <Link href={image.url || ""} target='_blank'>
+                        <CiSaveDown2 className='text-2xl' />
+                        </Link>
+                    </Button>
+
+                            
+            </div>
+            
+           <div className='w-full h-full'>
+
+           <ContextMenu>
+                <ContextMenuTrigger>
+                <Image src={image.url} alt={`${image._id}`} className='w-full h-full object-contain ' width={image.width} height={image.height} priority/>
+                </ContextMenuTrigger>
+                <ContextMenuContent>
+                    <ContextMenuItem>
+                    <Button variant={"ghost"}>
+                    Send to your Devices...
+                        </Button>
+                    </ContextMenuItem>
+                    <ContextMenuItem>
+                        <Button variant={"ghost"}>
+                            Cast...
+                        </Button>
+                    </ContextMenuItem>
+                    
+                </ContextMenuContent>
+                </ContextMenu>
+           </div>
+
+
+           
            </div>
     )
   }
 
 
 
-
-// 
-
-// const page = ({param}:{param:{id:string}}) => {
-//     const [image,setImage]=useState({});
-//     useEffect(()=>{
-//         console.log(param.id)
-//         async function fetchdata() {
-//             const imageRes=await getImageById(param.id);
-//             console.log(imageRes)
-//             setImage(imageRes as any);
-//             }
-//             fetchdata();
-            
-        
-//     },[])
-//   return (
-//    
-//   )
-// }
-
-// export default page
