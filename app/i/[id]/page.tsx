@@ -25,12 +25,18 @@ import {
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { DialogTrigger } from '@radix-ui/react-dialog';
 import { Separator } from '@/components/ui/separator';
-import { FacebookIcon } from 'lucide-react';
 
 
+interface ImageResponse {
+    url:string;
+    _id:string;
+    width:number;
+    height:number;
+}
 export default function Page({ params }: { params: { id: string } }) {
-    const [image,setImage]=useState({});
+    const [image, setImage] = useState<ImageResponse>({} as ImageResponse);
     const [currentUrl,setCurrenturl]=useState("");
+   
 
     useEffect(()=>{
         
@@ -38,7 +44,7 @@ export default function Page({ params }: { params: { id: string } }) {
             setCurrenturl(window.location.href);
             const imageRes=await getImageById(params.id);
             // console.log(imageRes)
-            setImage(imageRes as any);
+            setImage(imageRes);
             }
             fetchdata();
             
@@ -55,7 +61,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
             <Dialog >
                 <DialogTrigger>
-                    <Button className='' variant={"outline"}>
+                    <Button className='rounded-full' variant={"outline"}>
                          <CiShare1 className='text-2xl' />
                     </Button>
                 </DialogTrigger>
@@ -65,7 +71,7 @@ export default function Page({ params }: { params: { id: string } }) {
                     </DialogHeader>
                     <Separator />
                     <div className='grid grid-cols-5'>
-                            <TwitterShareButton quote="Image link from img gallery" url={currentUrl}>
+                            <TwitterShareButton url={currentUrl}>
                                 <TwitterIcon className='rounded-full col-span-1'/>
                             </TwitterShareButton>
                             <FacebookShareButton url={currentUrl}>
@@ -84,9 +90,14 @@ export default function Page({ params }: { params: { id: string } }) {
 
                 </DialogContent>
             </Dialog>
-            <Button className='rounded-full'>
-                <CiSaveDown2 className='text-2xl' />
-            </Button>
+            
+    <Button className='rounded-full' asChild>
+        <Link href={image.url} >
+        <CiSaveDown2 className='text-2xl' />
+        </Link>
+    </Button>
+
+            
             </div>
            <Image src={image.url} alt={`${image._id}`} className='w-full h-full object-contain ' width={image.width} height={image.height}/>
            </div>
