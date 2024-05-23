@@ -96,10 +96,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 </Dialog>
             )
     }
-    const handleCast=(e)=>{
-        e.preventDefault();
-        
-    }
+ 
     return (
         <div className=" z-10 flex flex-col items-center justify-center h-full w-full fixed">
             <div className='absolute top-5 left-5'>
@@ -135,7 +132,7 @@ export default function Page({ params }: { params: { id: string } }) {
                         </Button>
                     </ContextMenuItem>
                     <ContextMenuItem>
-                        <Button variant={"ghost"} onClick={handleCast}>
+                        <Button variant={"ghost"} >
                             Cast...
                         </Button>
                     </ContextMenuItem>
