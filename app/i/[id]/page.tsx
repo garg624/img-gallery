@@ -32,6 +32,7 @@ import {
     ContextMenuTrigger,
   } from "@/components/ui/context-menu"
 import { cn } from '@/lib/utils';
+import CustomCursor from '@/components/CustomCursor';
   
 
 
@@ -95,6 +96,10 @@ export default function Page({ params }: { params: { id: string } }) {
                 </Dialog>
             )
     }
+    const handleCast=(e)=>{
+        e.preventDefault();
+        
+    }
     return (
         <div className=" z-10 flex flex-col items-center justify-center h-full w-full fixed">
             <div className='absolute top-5 left-5'>
@@ -120,7 +125,8 @@ export default function Page({ params }: { params: { id: string } }) {
 
            <ContextMenu>
                 <ContextMenuTrigger>
-                <Image src={image.url} alt={`${image._id}`} className='w-full h-full object-contain ' width={image.width} height={image.height} priority/>
+                <CustomCursor />
+                <Image src={image.url} alt={`${image._id}`} className='image-cont w-full h-full object-contain ' width={image.width} height={image.height} priority/>
                 </ContextMenuTrigger>
                 <ContextMenuContent>
                     <ContextMenuItem>
@@ -129,7 +135,7 @@ export default function Page({ params }: { params: { id: string } }) {
                         </Button>
                     </ContextMenuItem>
                     <ContextMenuItem>
-                        <Button variant={"ghost"}>
+                        <Button variant={"ghost"} onClick={handleCast}>
                             Cast...
                         </Button>
                     </ContextMenuItem>
