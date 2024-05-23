@@ -32,7 +32,7 @@ import {
     ContextMenuTrigger,
   } from "@/components/ui/context-menu"
 import { cn } from '@/lib/utils';
-import CustomCursor from '@/components/CustomCursor';
+
   
 
 
@@ -96,6 +96,22 @@ export default function Page({ params }: { params: { id: string } }) {
                 </Dialog>
             )
     }
+    const handleShare = async () => {
+        if (navigator.share) {
+          try {
+            await navigator.share({
+              title: image._id,
+              text: 'Check out this image!',
+              url: window.location.href,
+            });
+            console.log('Image shared successfully');
+          } catch (error) {
+            console.error('Error sharing image:', error);
+          }
+        } else {
+          alert('Web Share API not supported in your browser.');
+        }
+      };
  
     return (
         <div className=" z-10 flex flex-col items-center justify-center h-full w-full fixed">
@@ -122,12 +138,12 @@ export default function Page({ params }: { params: { id: string } }) {
 
            <ContextMenu>
                 <ContextMenuTrigger>
-                <CustomCursor />
-                <Image src={image.url} alt={`${image._id}`} className='image-cont w-full h-full object-contain ' width={image.width} height={image.height} priority/>
+          
+                <Image src={image.url} alt={`${image._id}`} className=' w-full h-full object-contain ' width={image.width} height={image.height} priority/>
                 </ContextMenuTrigger>
                 <ContextMenuContent>
                     <ContextMenuItem>
-                    <Button variant={"ghost"}>
+                    <Button variant={"ghost"} onClick={handleShare}>
                     Send to your Devices...
                         </Button>
                     </ContextMenuItem>

@@ -3,9 +3,8 @@ import { getAllimages } from '@/actions/action'
 
 import ImageCard from './ImageCard';
 import { useEffect, useState } from 'react';
-import { unstable_noStore as noStore, revalidatePath } from 'next/cache';
-import { notFound } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import ImageCardSkeleton from './ImageCardSkeleton';
 
 const Gallery =() => {
   const [images,setImages]=useState([]);
@@ -16,10 +15,8 @@ const Gallery =() => {
 
   useEffect(()=>{
     async function fetchImg() {
-      
-      
       const imagesRes=await getAllimages();
-      console.log(imagesRes)
+      // console.log(imagesRes)
       setImages(imagesRes as any)
       console.log(images)
       router.refresh();
@@ -27,9 +24,15 @@ const Gallery =() => {
     }
     fetchImg();
   },[])
-  // if(images.length==0){
-  //   notFound();
-  // }
+  if(images.length==0){
+
+    return <div className='w-full flex flex-col lg:flex-row justify-center mt-5 items-center gap-2'>
+      <ImageCardSkeleton />
+      <ImageCardSkeleton />
+      <ImageCardSkeleton />
+      <ImageCardSkeleton />
+    </div>
+  }
 
   return (
     <div className='container min-h-full min-w-full'>

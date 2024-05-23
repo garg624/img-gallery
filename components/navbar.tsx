@@ -21,7 +21,7 @@ const Navbar = () => {
     return (
         <>
             <div className='flex justify-between items-center container  m-2  '>
-                <p className='text-white text-2xl '>
+                <p className='text-black text-2xl dark:text-white'>
                     logo
                 </p>
                 <div className='flex justify-between  gap-8'>
